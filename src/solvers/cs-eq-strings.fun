@@ -11,6 +11,8 @@ functor CSEqStrings ((*! structure IntSyn : INTSYN !*)
                        )
  : CS =
 struct
+  type 'a array = 'a array (* XXX hack *)
+
   (*! structure CSManager = CSManager !*)
 
   local

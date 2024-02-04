@@ -46,7 +46,6 @@ $(SML_LIB)/basis/basis.mlb
 ../src/lambda/tomega.sig
 ../src/lambda/tomega.fun
 ../src/lambda/tomega.sml
-(*
 ../src/paths/paths.sig
 ../src/paths/paths.fun
 ../src/paths/origins.sig
@@ -346,4 +345,3 @@ $(SML_LIB)/basis/basis.mlb
 ../src/server/sigint.sig
 ../src/server/sigint-mlton.sml
 ../src/server/server.sml
-*)

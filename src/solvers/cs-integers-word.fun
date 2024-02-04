@@ -11,6 +11,8 @@ functor CSIntWord ((*! structure IntSyn : INTSYN !*)
                    val wordSize : int)
  : CS =
 struct
+  type 'a array = 'a array (* XXX hack *)
+
   (*! structure CSManager = CSManager !*)
 
   local

@@ -8,7 +8,9 @@ functor Unify ((*! structure IntSyn' : INTSYN !*)
                structure Trail   : TRAIL)
   : UNIFY =
 struct
-  (*! structure IntSyn = IntSyn' !*)
+  type 'a array = 'a array (* XXX hack *)
+
+(*! structure IntSyn = IntSyn' !*)
 
   exception Unify of string
   exception NotInvertible

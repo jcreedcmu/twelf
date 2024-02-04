@@ -10,6 +10,7 @@ functor Match ((*! structure IntSyn' : INTSYN !*)
                structure Trail   : TRAIL)
   : MATCH =
 struct
+  type 'a array = 'a array (* XXX hack *)
   (*! structure IntSyn = IntSyn' !*)
 
   exception Match of string

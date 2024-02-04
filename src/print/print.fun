@@ -15,6 +15,7 @@ functor Print ((*! structure IntSyn' : INTSYN !*)
                structure Symbol : SYMBOL)
   : PRINT =
 struct
+  type 'a array = 'a array (* XXX hack *)
 
   (*! structure IntSyn = IntSyn' !*)
 structure Formatter = Formatter'

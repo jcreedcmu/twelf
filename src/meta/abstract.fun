@@ -24,6 +24,7 @@ functor MTPAbstract ((*! structure IntSyn' : INTSYN !*)
                        )
   : MTPABSTRACT =
 struct
+  type 'a array = 'a array (* XXX hack *)
 
   (*! structure IntSyn = IntSyn' !*)
   (*! structure FunSyn = FunSyn' !*)

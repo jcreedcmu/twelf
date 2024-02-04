@@ -6,6 +6,8 @@ functor Whnf ((*! structure IntSyn' : INTSYN !*)
                )
   : WHNF =
 struct
+  type 'a array = 'a array (* XXX hack *)
+
   (*! structure IntSyn = IntSyn' !*)
 
   (*
@@ -137,6 +139,7 @@ struct
 
        Effects: EVars may be lowered to base type.
     *)
+        
     fun whnfRedex (Us, (SClo (S, s2'), s2)) =
           whnfRedex (Us, (S, comp (s2', s2)))
       | whnfRedex (Us as (Root R, s1), (Nil, s2)) = Us

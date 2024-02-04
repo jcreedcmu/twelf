@@ -8,7 +8,9 @@ functor Conv
      )
      : CONV =
 struct
-  (*! structure IntSyn = IntSyn' !*)
+  type 'a array = 'a array (* XXX hack *)
+
+(*! structure IntSyn = IntSyn' !*)
 
   local
     open IntSyn

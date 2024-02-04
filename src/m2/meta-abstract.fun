@@ -25,6 +25,7 @@ functor MetaAbstract (structure Global : GLOBAL
                         )
   : METAABSTRACT =
 struct
+  type 'a array = 'a array (* XXX hack *)
   structure MetaSyn = MetaSyn'
 
   exception Error of string

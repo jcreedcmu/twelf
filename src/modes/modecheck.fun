@@ -16,6 +16,8 @@ functor ModeCheck ((*! structure IntSyn : INTSYN !*)
                        )
   : MODECHECK =
 struct
+  type 'a array = 'a array (* XXX hack *)
+
   (*! structure IntSyn = IntSyn !*)
   (*! structure ModeSyn = ModeSyn !*)
   (*! structure Paths = Paths !*)

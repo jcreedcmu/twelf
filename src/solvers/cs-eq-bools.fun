@@ -11,6 +11,8 @@ functor CSEqBools ((*! structure IntSyn : INTSYN !*)
                      )
  : CS =
 struct
+  type 'a array = 'a array (* XXX hack *)
+
   (*! structure CSManager = CSManager !*)
 
   (*! structure IntSyn = IntSyn !*)

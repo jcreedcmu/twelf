@@ -12,6 +12,8 @@ functor CSEqField (structure Field : FIELD
                        )
  : CS_EQ_FIELD =
 struct
+  type 'a array = 'a array (* XXX hack *)
+
   (*! structure CSManager = CSManager !*)
 
   structure Field = Field

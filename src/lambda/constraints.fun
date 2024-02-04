@@ -9,6 +9,7 @@ functor Constraints
        )
        : CONSTRAINTS =
 struct
+  type 'a array = 'a array (* XXX hack *)
 
   (*! structure IntSyn = IntSyn' !*)
 

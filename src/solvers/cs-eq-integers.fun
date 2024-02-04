@@ -12,6 +12,8 @@ functor CSEqIntegers (structure Integers : INTEGERS
                         )
  : CS_EQ_INTEGERS =
 struct
+  type 'a array = 'a array (* XXX hack *)
+
   (*! structure CSManager = CSManager !*)
 
   structure Integers = Integers

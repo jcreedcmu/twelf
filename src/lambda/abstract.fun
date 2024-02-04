@@ -11,6 +11,7 @@ functor Abstract ((*! structure IntSyn' : INTSYN !*)
                     )
   : ABSTRACT =
 struct
+  type 'a array = 'a array (* XXX hack *)
 
   exception Error of string
 

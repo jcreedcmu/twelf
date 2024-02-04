@@ -13,7 +13,9 @@ functor TypeCheck ((*! structure IntSyn' : INTSYN !*)
                        )
   : TYPECHECK =
 struct
-  (*! structure IntSyn = IntSyn' !*)
+  type 'a array = 'a array (* XXX hack *)
+
+(*! structure IntSyn = IntSyn' !*)
   exception Error of string
 
   local
