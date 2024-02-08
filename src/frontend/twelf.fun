@@ -1803,6 +1803,7 @@ val make = make
 
 val version = Version.version_string
 
+(*
 structure Table :
 			 sig
 				datatype Strategy = datatype TableParam.Strategy
@@ -1832,7 +1833,7 @@ fun top () =
       topLoopT ()
     end
 end
-
+*)
 
 end  (* local *)
 end; (* functor Twelf *)

@@ -1,4 +1,4 @@
-(* Front End Interface *) 
+(* Front End Interface *)
 (* Author: Frank Pfenning *)
 
 signature TWELF =
@@ -27,7 +27,7 @@ sig
   end
 
   structure Trace :
-  sig 
+  sig
     datatype 'a Spec =		       (* trace and breakpoint spec *)
       None			       (* no tracing, default *)
     | Some of 'a list		       (* list of clauses and families *)
@@ -41,6 +41,7 @@ sig
     val reset : unit -> unit	       (* reset trace, break, and detail *)
   end
 
+(*
   structure Table :
   sig
     datatype Strategy = Variant | Subsumption  (* Variant | Subsumption *)
@@ -51,6 +52,7 @@ sig
 
   val top : unit -> unit    (* top-level for interactive tabled queries *)
   end
+*)
 
   structure Timers :
   sig
@@ -68,7 +70,7 @@ sig
 
   structure Compile :
   sig
-    datatype Opt = No | LinearHeads | Indexing 
+    datatype Opt = No | LinearHeads | Indexing
     val optimize : Opt ref
   end
 
@@ -108,7 +110,7 @@ sig
     type config			       (* configuration *)
     val suffix : string ref            (* suffix of configuration files *)
     val read : string -> config	       (* read config file *)
-    val readWithout : string * config -> config 
+    val readWithout : string * config -> config
                                        (* read config file, minus contents of another *)
     val load : config -> Status	       (* reset and load configuration *)
     val append : config -> Status      (* load configuration (w/o reset) *)
