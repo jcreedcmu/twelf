@@ -343,5 +343,5 @@ $(SML_LIB)/basis/basis.mlb
 ../src/frontend/unknownexn-smlnj.sml
 ../src/frontend/frontend.sml
 ../src/server/sigint.sig
-../src/server/sigint-mlton.sml
+../src/server/sigint-stub.sml
 ../src/server/server.sml
