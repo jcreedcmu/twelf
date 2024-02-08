@@ -41,7 +41,7 @@ struct
              Substring.string (triml args'))
 	  end
       end
-  
+
   (* tokenize (args) = [token1, token2, ..., tokenn]
      splits the arguments string into a list of space-separated
      tokens
@@ -111,6 +111,7 @@ struct
   fun limitToString (NONE) = "*"
     | limitToString (SOME(i)) = Int.toString i
 
+(*
   (* Tabling strategy *)
   fun getTableStrategy ("Variant"::nil) = Twelf.Table.Variant
     | getTableStrategy ("Subsumption"::nil) = Twelf.Table.Subsumption
@@ -120,6 +121,7 @@ struct
 
   fun tableStrategyToString (Twelf.Table.Variant) = "Variant"
     | tableStrategyToString (Twelf.Table.Subsumption) = "Subsumption"
+*)
 
   (* Tracing mode for term reconstruction *)
   fun getReconTraceMode ("Progressive"::nil) = Twelf.Recon.Progressive
@@ -161,8 +163,10 @@ struct
     | setParm ("Prover.strategy"::ts) = Twelf.Prover.strategy := getStrategy ts
     | setParm ("Prover.maxSplit"::ts) = Twelf.Prover.maxSplit := getNat ts
     | setParm ("Prover.maxRecurse"::ts) = Twelf.Prover.maxRecurse := getNat ts
+(*
     | setParm ("Table.strategy"::ts) = Twelf.Table.strategy := getTableStrategy ts
     | setParm ("Table.strengthen"::ts) = Twelf.Table.strengthen := getBool ts
+*)
     | setParm (t::ts) = error ("Unknown parameter " ^ quote t)
     | setParm (nil) = error ("Missing parameter")
 
@@ -183,7 +187,9 @@ struct
     | getParm ("Prover.strategy"::ts) = strategyToString (!Twelf.Prover.strategy)
     | getParm ("Prover.maxSplit"::ts) = Int.toString (!Twelf.Prover.maxSplit)
     | getParm ("Prover.maxRecurse"::ts) = Int.toString (!Twelf.Prover.maxRecurse)
-   | getParm ("Table.strategy"::ts) = tableStrategyToString (!Twelf.Table.strategy) 
+(*
+    | getParm ("Table.strategy"::ts) = tableStrategyToString (!Twelf.Table.strategy)
+*)
     | getParm (t::ts) = error ("Unknown parameter " ^ quote t)
     | getParm (nil) = error ("Missing parameter")
 
@@ -221,7 +227,6 @@ struct
 \  loadFile <file>             - Load Twelf file <file>\n\
 \  decl <id>                   - Show constant declaration for <id>\n\
 \  top                         - Enter interactive query loop\n\
-\  Table.top                   - Enter interactive loop for tables queries\n\
 \  version                     - Print Twelf server's version\n\
 \  help                        - Print this help message\n\
 \\n\
@@ -242,7 +247,6 @@ struct
 \  Prover.strategy <strategy>  - Prover strategy\n\
 \  Prover.maxSplit <nat>       - Prover splitting depth bound\n\
 \  Prover.maxRecurse <nat>     - Prover recursion depth bound\n\
-\  Table.strategy <tableStrategy>   - Tabling strategy\n\
 \\n\
 \Server types:\n\
 \  file                        - File name, relative to working directory\n\
@@ -259,7 +263,7 @@ struct
 \"
 
   (* serve' (command, args) = ()
-     executes the server commands represented by `tokens', 
+     executes the server commands represented by `tokens',
      issues success or failure and then reads another command line.
      Invariant: tokens must be non-empty.
 
@@ -270,7 +274,7 @@ struct
     | serve' ("get", args) =
       (print (getParm (tokenize args) ^ "\n");
        serve (Twelf.OK))
-    | serve' ("Style.check", args) = 
+    | serve' ("Style.check", args) =
       (checkEmpty args; StyleCheck.check (); serve (Twelf.OK))
     | serve' ("Print.sgn", args) =
       (checkEmpty args; Twelf.Print.sgn (); serve (Twelf.OK))
@@ -374,10 +378,12 @@ struct
        Twelf.top ();
        serve (Twelf.OK))
 
+(*
     | serve' ("Table.top", args) =
       (checkEmpty args;
        Twelf.Table.top ();
        serve (Twelf.OK))
+*)
 
     | serve' ("version", args) =
       (print (Twelf.version ^ "\n");
