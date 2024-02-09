@@ -67,6 +67,7 @@ to run "make buildid" first.
 Files
 =====
 
+```
  README            --- this file
  Makefile          --- enables make
  server.cm         --- used to build Twelf Server
@@ -80,3 +81,4 @@ Files
  src/              --- the SML sources for Twelf
  tex/              --- TeX macros and style files
  vim/              --- Vim interface for Twelf
+```
