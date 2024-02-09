@@ -422,3 +422,11 @@ structure Server =
 	  structure Timing = Timing
 	  structure Lexer = Lexer
 	  structure Twelf = Twelf);
+
+Js.documentWrite Js.document "<b>Twelf Javascript Loaded</b>";
+
+structure J = JsCore
+fun loadString s = (case Twelf.loadString s of
+							  Twelf.ABORT => "ABORT"
+							| Twelf.OK => "OK");
+J.exec1 {stmt="window.loadString=k;", arg1=("k", J.==>(J.string, J.string)), res=J.unit} (loadString);
