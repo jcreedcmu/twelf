@@ -4,6 +4,20 @@ Twelf-in-Javascript
 This is an experiment to see if I can use [MLKit](https://github.com/melsman/mlkit)'s [SMLToJs](https://github.com/melsman/mlkit/blob/master/README_SMLTOJS.md) to compile
 [twelf](http://twelf.org/wiki/Main_Page) to javascript and get it running in a web browser.
 
+Status
+------
+
+- After inserting a bunch of stubs, and commenting out some of the twelf code that does tabled queries
+  that seem to trigger a compiler bug in SMLToJs (which I should document further) I can at least
+  get substantially all of the twelf server to compile.
+
+- I'm able to get javascript-land calling trivial sml functions that
+  successfully do `document.write` or `console.log` or the like.
+
+- Also from javascript I can *call* `Twelf.loadString` but it
+  immediately raises an exception [TextIO.openString](https://github.com/jcreedcmu/mlkit/blob/jcreed/twelf-in-js/js/basis/TextIO.sml#L64) is unimplemented.
+  Implementing that function and the associated read calls is the next step.
+
 Building
 --------
 
