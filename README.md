@@ -11,12 +11,15 @@ Status
   that seem to trigger a compiler bug in SMLToJs (which I should document further) I can at least
   get substantially all of the twelf server to compile.
 
-- I'm able to get javascript-land calling trivial sml functions that
-  successfully do `document.write` or `console.log` or the like.
+- From javascript I can
+  - install a callback that gets the output of any
+	 `print` coming from sml-side (Since twelf seems to pervasively
+	 simply call `print` instead of setting up its own special-purpose
+	 output stream, which makes sense since it expects to be run as a
+	 standalone process hooked up to `stdin`/`stdout`)
+  - call `loadString` to typecheck load individual twelf files
 
-- Also from javascript I can *call* `Twelf.loadString` but it
-  immediately raises an exception [TextIO.openString](https://github.com/jcreedcmu/mlkit/blob/jcreed/twelf-in-js/js/basis/TextIO.sml#L64) is unimplemented.
-  Implementing that function and the associated read calls is the next step.
+- Next Steps: Make a more convenient interface
 
 Building
 --------
@@ -42,7 +45,24 @@ SML_LIB=`pwd`/../mlkit/js ../mlkit/bin/smltojs build/twelf-core-mlkit.mlb
 
 This should create a file `run.html` which can be loaded into a web browser.
 
-Original Twelf README follows.
+In the javascript developer console in the browser one can do something like
+
+```
+printer_set(x => console.log(`Twelf output: ${x}`))
+loadString("o:type. zz : o. a : o -> type. b : a zz. c : {x:o} a x -> a x -> type. d : c _ b b.")
+```
+and see output like
+```
+Twelf output: o : type.
+Twelf output: zz : o.
+Twelf output: a : o -> type.
+Twelf output: b : a zz.
+Twelf output: c : {x:o} a x -> a x -> type.
+Twelf output: d : c zz b b.
+<- "OK"
+```
+
+(Original Twelf README follows.)
 
 Twelf
 =====

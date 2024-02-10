@@ -429,4 +429,6 @@ structure J = JsCore
 fun loadString s = (case Twelf.loadString s of
 							  Twelf.ABORT => "ABORT"
 							| Twelf.OK => "OK");
+
 J.exec1 {stmt="window.loadString=k;", arg1=("k", J.==>(J.string, J.string)), res=J.unit} (loadString);
+J.exec1 {stmt="window.printer_set=k;", arg1=("k", J.==>(J.==>(J.string, J.unit), J.unit)), res=J.unit} (Control.printer_set);
