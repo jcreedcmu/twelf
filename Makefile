@@ -11,7 +11,8 @@
 polyml = poly
 smlnj = sml
 oldnj = sml
-mlton ?= mlton -default-ann 'nonexhaustiveMatch ignore' \
+mlton ?= /home/jcreed/pgit/mlton-wasm2-INSTALL/bin/mlton \
+               -default-ann 'nonexhaustiveMatch ignore' \
                -default-ann 'nonexhaustiveBind ignore'
 make = make
 
@@ -42,6 +43,9 @@ twelf-server-announce:
 	@echo "*************************************************"
 	@echo "Twelf Server"
 	@echo "*************************************************"
+
+twelf-debug:
+	$(mlton) -output bin/twelf-debug build/twelf-debug.mlb
 
 .PHONY: twelf-server-mlton
 twelf-server-mlton:

@@ -31,14 +31,25 @@ val _ = e (fn size =>
 					 bref := SOME b; b
 				  end)
 
+fun codeOfStatus Twelf.OK = 0
+  | codeOfStatus Twelf.ABORT = 1
+
 val e = _export "execute": (unit -> int) -> unit;
 val _ = e (fn () =>
 				  let
-					 fun codeOfStatus Twelf.OK = 0
-						| codeOfStatus Twelf.ABORT = 1
 					 val status = case !bref of
 											NONE => (print "No input buffer allocated"; Twelf.ABORT)
 										 | SOME b => Twelf.loadString (CharArray.vector b)
+				  in
+					 codeOfStatus status
+				  end)
+
+val e = _export "printParse": (unit -> int) -> unit;
+val _ = e (fn () =>
+				  let
+					 val status = case !bref of
+											NONE => (print "No input buffer allocated"; Twelf.ABORT)
+										|  SOME b => (printParseResult (CharArray.vector b); Twelf.OK)
 				  in
 					 codeOfStatus status
 				  end)

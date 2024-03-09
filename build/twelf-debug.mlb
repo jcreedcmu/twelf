@@ -1,4 +1,4 @@
 
 twelf-core-mlton.mlb
 ../src/wasi-support/wasi-support.sml
-twelf-wasi.sml
+debug.sml
