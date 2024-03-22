@@ -65,6 +65,16 @@ twelf-lib-mlton-wasi:
 		-link-opt -Wl,--import-memory \
 		build/twelf-lib-mlton-wasi.mlb
 
+.PHONY: twelf-lib-mlton-classic-mac
+twelf-lib-mlton-classic-mac:
+	$(mlton) -target m68k-apple-macos \
+                -cc-cross-style prefixed \
+		-format archive \
+		-output bin/twelf-server.a \
+		-export-header bin/twelf_server.h \
+		-default-ann 'allowFFI true' \
+		build/twelf-lib-mlton-wasi.mlb
+
 .PHONY: twelf-server-smlnj
 twelf-server-smlnj:
 	$(smlnj) < build/twelf-server-smlnj.sml ;
@@ -93,6 +103,8 @@ smlnj : twelf-server-announce buildid twelf-server-smlnj twelf-emacs
 mlton : twelf-server-announce buildid twelf-server-mlton twelf-emacs
 
 wasi : twelf-server-announce buildid twelf-lib-mlton-wasi
+
+classic-mac : twelf-server-announce buildid twelf-lib-mlton-classic-mac
 
 .PHONY: twelf-regression check
 twelf-regression: buildid
