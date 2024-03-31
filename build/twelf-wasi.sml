@@ -30,6 +30,7 @@
  *)
 
 val bref: CharArray.array option ref = ref NONE
+val _ = print "Hello From Open\r"
 
 val e = _export "allocate": (unit -> unit) -> unit;
 val _ = e (fn () =>
