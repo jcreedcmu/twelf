@@ -34,6 +34,7 @@ val bref: CharArray.array option ref = ref NONE
 val e = _export "allocate": (int -> CharArray.array) -> unit;
 val _ = e (fn size =>
 				  let
+					 val _ = print ("hello from allocate " ^ Int.toString size ^ "\r")
 					 val b = CharArray.tabulate (size, fn _ => Char.chr 0)
 				  in
 					 bref := SOME b; b
@@ -42,6 +43,7 @@ val _ = e (fn size =>
 val e = _export "execute": (unit -> int) -> unit;
 val _ = e (fn () =>
 				  let
+					 val _ = print "hello from execute\r"
 					 fun codeOfStatus Twelf.OK = 0
 						| codeOfStatus Twelf.ABORT = 1
 					 val status = case !bref of
