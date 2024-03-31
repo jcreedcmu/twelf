@@ -71,6 +71,7 @@ twelf-lib-mlton-classic-mac:
                 -cc-cross-style prefixed \
 		-format archive \
 		-output bin/twelf-server.a \
+      -const 'Exn.keepHistory true' \
 		-export-header bin/twelf_server.h \
 		-default-ann 'allowFFI true' \
 		build/twelf-lib-mlton-wasi.mlb
