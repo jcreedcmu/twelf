@@ -34,7 +34,7 @@ val bref: CharArray.array option ref = ref NONE
 val e = _export "allocate": (unit -> unit) -> unit;
 val _ = e (fn () =>
 				  let
-					 val _ = print ("hello from allocate\r")
+					 (*  val _ = print ("hello from allocate\r") *)
 				  in
 					 ()
 				  end)
