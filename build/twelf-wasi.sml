@@ -31,13 +31,12 @@
 
 val bref: CharArray.array option ref = ref NONE
 
-val e = _export "allocate": (int -> CharArray.array) -> unit;
-val _ = e (fn size =>
+val e = _export "allocate": (unit -> unit) -> unit;
+val _ = e (fn () =>
 				  let
-					 val _ = print ("hello from allocate " ^ Int.toString size ^ "\r")
-					 val b = CharArray.tabulate (size, fn _ => Char.chr 0)
+					 val _ = print ("hello from allocate\r")
 				  in
-					 bref := SOME b; b
+					 ()
 				  end)
 
 val e = _export "execute": (unit -> int) -> unit;
