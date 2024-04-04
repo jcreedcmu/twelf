@@ -39,10 +39,13 @@ val _ = e (fn size =>
 					 bref := SOME b; b
 				  end)
 
+val ffi = _import "simple_import" public: int -> int;
+val e = _export "use_import": (int -> int) -> unit;
+val _ = e (fn n => simple_import (simple_import n))
+
 val e = _export "execute": (unit -> int) -> unit;
 val _ = e (fn () =>
 				  let
-					 val _ = print "hello from execute\r"
 					 fun codeOfStatus Twelf.OK = 0
 						| codeOfStatus Twelf.ABORT = 1
 					 val status = case !bref of
