@@ -39,7 +39,7 @@ val _ = e (fn size =>
 					 bref := SOME b; b
 				  end)
 
-val ffi = _import "simple_import" public: int -> int;
+val simple_import = _import "simple_import" public: int -> int;
 val e = _export "use_import": (int -> int) -> unit;
 val _ = e (fn n => simple_import (simple_import n))
 
