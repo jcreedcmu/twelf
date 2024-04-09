@@ -660,7 +660,7 @@ struct
 		val c1 = fst (S, id)
 	 in
 		case fromExp c1 of
-			 Concat [String s] => (alertSideEffect s; SOME (EClo c1))
+			 Concat [String s] => (alertSideEffect (s ^ "\000"); SOME (EClo c1))
 		 | _ => NONE
 	 end
 		| solveAlert (G, S, n) = NONE
