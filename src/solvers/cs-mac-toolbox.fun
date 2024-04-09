@@ -25,6 +25,9 @@ struct
 
     val concatID = ref ~1 : IntSyn.cid ref
 
+    val unitID = ref ~1 : IntSyn.cid ref
+    val starID = ref ~1 : IntSyn.cid ref
+
     fun concatExp (U, V) = Root (Const (!concatID), App (U, App (V, Nil)))
 
     fun toString s = ("\"" ^ s ^ "\"")
@@ -622,6 +625,10 @@ struct
        Initialize the constraint solver.
        installFunction is used to add its signature symbols.
     *)
+
+    fun unit () = Root (Const (!unitID), Nil)
+    fun starExp ()  = Root (Const (!starID), Nil)
+
     fun init (cs, installF) =
           (
             myID := cs;
@@ -637,6 +644,17 @@ struct
                                 arrow (string (), arrow (string (), string ())),
                                 Type),
                         SOME(FX.Infix (FX.maxPrec, FX.Right)), nil);
+
+				unitID :=
+              installF (ConDec ("unit", NONE, 0, Normal,
+                                Uni (Type), Kind),
+                        NONE, [MS.Mnil]);
+
+				starID :=
+              installF (ConDec ("*", NONE, 0, Normal,
+                                unit (), Type),
+                        NONE, nil);
+
             installFgnExpOps ();
             ()
           )

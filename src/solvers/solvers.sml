@@ -55,7 +55,7 @@ structure CSIneqZ = CSIneqIntegers (structure Integers = Integers
                                     structure Unify = UnifyTrail
                                     structure SparseArray = SparseArray
                                     structure SparseArray2 = SparseArray2
-                                    (*! structure CSManager = CSManager !*)
+                                    (*! structure CSManger = CSManager !*)
                                     structure CSEqIntegers = CSEqZ
 				    structure Compat = Compat);
 
