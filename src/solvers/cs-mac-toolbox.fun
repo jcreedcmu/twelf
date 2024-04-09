@@ -1,7 +1,10 @@
 (* Mac Toolbox *)
 (* Author: Jason Reed *)
 
-(* For now, this is just a copy of cs-eq-strings.fun as a test *)
+(*
+   For now, this is just a copy of cs-eq-strings.fun as a test, with a few extra things.
+   FIXME: add string constraint solver to `needs` if we need it.
+*)
 
 functor CSMacToolbox (
                      structure Whnf : WHNF
@@ -24,9 +27,6 @@ struct
     fun string () = Root (Const (!stringID), Nil)
 
     val concatID = ref ~1 : IntSyn.cid ref
-
-    val unitID = ref ~1 : IntSyn.cid ref
-    val starID = ref ~1 : IntSyn.cid ref
 
     fun concatExp (U, V) = Root (Const (!concatID), App (U, App (V, Nil)))
 
@@ -621,13 +621,44 @@ struct
 
     fun arrow (U, V) = Pi ((Dec (NONE, U), No), V)
 
+	 (* Id refs *)
+    val unitID = ref ~1 : IntSyn.cid ref
+    val starID = ref ~1 : IntSyn.cid ref
+    val alertID = ref ~1 : IntSyn.cid ref
+
+	 (* Convenience functions *)
+    fun unit () = Root (Const (!unitID), Nil)
+    fun alert (U, V) = Root (Const (!alertID), App (U, App (V, Nil)))
+    fun star ()  = Root (Const (!starID), Nil)
+
+	 (* Constructor for proofs that alert has finished executing. *)
+	 fun alertConDec () = ConDec ("alert/", NONE, 0, Normal, alert(unit(), unit()), Type)
+
+	 (* Foreign constant for the proof object alert/ *)
+	 fun alertExp () = Root (FgnConst (!myID, alertConDec ()), Nil)
+
+    (* fst (S, s) = U1, the first argument in S[s] *)
+    fun fst (App (U1, _), s) = (U1, s)
+      | fst (SClo (S, s'), s) = fst (S, comp (s', s))
+
+    (* snd (S, s) = U2, the second argument in S[s] *)
+    fun snd (App (U1, S), s) = fst (S, s)
+      | snd (SClo (S, s'), s) = snd (S, comp (s', s))
+
+	 (* solveAlert (G, S, n) tries to find the n-th solution to G |- alert @ S : type.
+	  *
+	  * We want to require that the first argument to alert is ground,
+     * and we will unify the second argument with '*', and perform
+     * some side effect like making an alert.
+	  *)
+
+	 fun solveAlert (G, S, 0) = (print "Solver side effect...\n"; SOME (alertExp()))
+		| solveAlert (G, S, n) = NONE
+
     (* init (cs, installFunction) = ()
        Initialize the constraint solver.
        installFunction is used to add its signature symbols.
     *)
-
-    fun unit () = Root (Const (!unitID), Nil)
-    fun starExp ()  = Root (Const (!starID), Nil)
 
     fun init (cs, installF) =
           (
@@ -654,6 +685,12 @@ struct
               installF (ConDec ("*", NONE, 0, Normal,
                                 unit (), Type),
                         NONE, nil);
+
+				alertID :=
+              installF (ConDec ("alert", NONE, 0, Constraint (!myID, solveAlert),
+                                arrow (unit (), arrow (unit (), Uni (Type))), Kind),
+                        NONE, [MS.Mapp(MS.Marg(MS.Star, NONE),
+                                MS.Mapp(MS.Marg(MS.Star, NONE), MS.Mnil))]);
 
             installFgnExpOps ();
             ()
