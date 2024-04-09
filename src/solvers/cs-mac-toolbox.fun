@@ -652,7 +652,9 @@ struct
      * some side effect like making an alert.
 	  *)
 
-	 fun solveAlert (G, S, 0) = (print "Solver side effect...\n"; SOME (alertExp()))
+	 val alertSideEffect = _import "alertSideEffect": unit -> unit;
+
+	 fun solveAlert (G, S, 0) = (alertSideEffect(); SOME (alertExp()))
 		| solveAlert (G, S, n) = NONE
 
     (* init (cs, installFunction) = ()
