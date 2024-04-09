@@ -136,6 +136,7 @@ $(SML_LIB)/basis/sml-nj.mlb
 ../src/solvers/cs-eq-field.fun
 ../src/solvers/cs-ineq-field.fun
 ../src/solvers/cs-eq-strings.fun
+../src/solvers/cs-mac-toolbox.fun
 ../src/solvers/cs-eq-bools.fun
 ../src/solvers/cs-eq-integers.sig
 ../src/solvers/cs-eq-integers.fun

@@ -27,6 +27,7 @@ is
   cs-eq-integers.fun
   cs-ineq-integers.fun
   cs-eq-strings.fun
+  cs-mac-toolbox.fun
   cs-eq-bools.fun
   cs-integers-word.fun
   solvers.sml

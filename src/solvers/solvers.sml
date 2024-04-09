@@ -30,6 +30,11 @@ structure CSEqStrings = CSEqStrings ((*! structure IntSyn = IntSyn !*)
                                      (*! structure CSManager = CSManager !*)
 				       );
 
+structure CSMacToolbox = CSMacToolbox (
+                                     structure Whnf = Whnf
+                                     structure Unify = UnifyTrail
+				       );
+
 structure CSEqBools = CSEqBools ((*! structure IntSyn = IntSyn !*)
                                  structure Whnf = Whnf
                                  structure Unify = UnifyTrail
@@ -63,7 +68,7 @@ structure CSIntWord32 = CSIntWord ((*! structure IntSyn = IntSyn !*)
 signature CS_INSTALLER =
 sig
   val version : string
-end; 
+end;
 
 (* execute for effect *)
 (* wrapped in structure so it can be tracked by CM *)
@@ -71,6 +76,7 @@ structure CSInstaller : CS_INSTALLER =
 struct
   val solvers = [CSEqQ.solver, CSIneqQ.solver,
 		 CSEqStrings.solver,
+		 CSMacToolbox.solver,
 		 CSEqBools.solver,
 		 CSEqZ.solver, CSIneqZ.solver,
 		 CSIntWord32.solver]
