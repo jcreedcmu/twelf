@@ -632,10 +632,12 @@ struct
     fun star ()  = Root (Const (!starID), Nil)
 
 	 (* Constructor for proofs that alert has finished executing. *)
-	 fun alertConDec () = ConDec ("alert/", NONE, 0, Normal, alert(unit(), unit()), Type)
+	 fun alertConDec s = ConDec ("alert/", NONE, 0, Normal, alert(s, unit()), Type)
 
 	 (* Foreign constant for the proof object alert/ *)
-	 fun alertExp () = Root (FgnConst (!myID, alertConDec ()), Nil)
+	 fun alertExp s = Root (FgnConst (!myID, alertConDec s), Nil)
+
+
 
     (* fst (S, s) = U1, the first argument in S[s] *)
     fun fst (App (U1, _), s) = (U1, s)
@@ -652,9 +654,15 @@ struct
      * some side effect like making an alert.
 	  *)
 
-	 val alertSideEffect = _import "alertSideEffect": unit -> unit;
+	 val alertSideEffect = _import "alertSideEffect": string -> unit;
 
-	 fun solveAlert (G, S, 0) = (alertSideEffect(); SOME (alertExp()))
+	 fun solveAlert (G, S, 0) = let
+		val c1 = fst (S, id)
+	 in
+		case fromExp c1 of
+			 Concat [String s] => (alertSideEffect s; SOME (EClo c1))
+		 | _ => NONE
+	 end
 		| solveAlert (G, S, n) = NONE
 
     (* init (cs, installFunction) = ()
@@ -690,7 +698,7 @@ struct
 
 				alertID :=
               installF (ConDec ("alert", NONE, 0, Constraint (!myID, solveAlert),
-                                arrow (unit (), arrow (unit (), Uni (Type))), Kind),
+                                arrow (string (), arrow (unit (), Uni (Type))), Kind),
                         NONE, [MS.Mapp(MS.Marg(MS.Star, NONE),
                                 MS.Mapp(MS.Marg(MS.Star, NONE), MS.Mnil))]);
 
